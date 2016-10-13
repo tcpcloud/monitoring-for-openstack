@@ -336,6 +336,9 @@ def _check_nova_instance():
     parser.add_argument('--verbose', action='count',
                         help='Print requests on stderr.')
 
+    parser.add_argument('--region_name', metavar='region_name',
+                        type=str, help="Region name.")
+
     args = parser.parse_args()
 
     # this shouldn't raise any exception as no connection is done when
@@ -348,7 +351,8 @@ def _check_nova_instance():
                              auth_url=args.auth_url,
                              endpoint_type=args.endpoint_type,
                              http_log_debug=args.verbose,
-                             insecure=args.insecure)
+                             insecure=args.insecure,
+                             region_name=args.region_name)
     except Exception as e:
         utils.critical("Error creating nova communication object: %s\n" % e)
 
