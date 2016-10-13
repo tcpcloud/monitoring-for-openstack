@@ -270,6 +270,9 @@ def _check_cinder_volume():
     parser.add_argument('--verbose', action='count',
                         help='Print requests on stderr.')
 
+    parser.add_argument('--region_name', metavar='region_name',
+                        type=str, help="Region name.")
+
     args = parser.parse_args()
 
     # this shouldn't raise any exception as no connection is done when
@@ -281,7 +284,8 @@ def _check_cinder_volume():
                              api_key=args.password,
                              auth_url=args.auth_url,
                              endpoint_type=args.endpoint_type,
-                             http_log_debug=args.verbose)
+                             http_log_debug=args.verbose,
+                             region_name=args.region_name)
     except Exception as e:
         utils.critical("Error creating cinder communication object: %s" % e)
 
