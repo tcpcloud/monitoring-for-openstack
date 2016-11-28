@@ -234,6 +234,9 @@ parser.add_argument('--property', metavar='property', type=str,
                     default=[], action="append",
                     help='Property for the Heat template')
 
+parser.add_argument('--region_name', metavar='region_name',
+                    type=str, help="Region name.")
+
 args = parser.parse_args()
 
 image_props = parse_properties(args.image_property)
@@ -276,7 +279,8 @@ try:
                               auth_token=ksclient.auth_token,
                               auth_url=args.auth_url,
                               bypass_url=nova_endpoint,
-                              tenant_id=ksclient.tenant_id)
+                              tenant_id=ksclient.tenant_id,
+                              region_name=args.region_name)
 
     cinder_client = cinder.Client('1',
                                   username=args.username,
